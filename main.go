@@ -26,7 +26,7 @@ func main() {
 
 	// Start the server
 	log.Println("Server started on port 5000")
-	log.Fatal(http.ListenAndServe(":5001", nil))
+	log.Fatal(http.ListenAndServe(":5000", nil))
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
