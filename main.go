@@ -6,15 +6,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Data struct {
 	Status int `json:"status"`
 }
 
-var httpStatusCode int = 200
+var (
+	httpStatusCode int = 200
+)
 
 func main() {
+
 	// Define the routes and their corresponding handlers
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/api", apiHandler)
@@ -27,8 +31,13 @@ func main() {
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 
+	hostname, err := os.Hostname()
+	if err != nil {
+		log.Fatal(err)
+	}
+	version := os.Getenv("SERVICE_VERSION")
 	w.WriteHeader(httpStatusCode)
-	fmt.Fprint(w, "Welcome to the home page!")
+	fmt.Fprint(w, "Version ", version, ", instance: ", hostname, ".\n")
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
