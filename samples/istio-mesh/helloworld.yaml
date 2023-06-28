@@ -33,10 +33,16 @@ spec:
     spec:
       containers:
       - name: helloworld
-        image: docker.io/istio/examples-helloworld-v1
+        image: autosetup/test-webserver:0.0.2
+        command:
+          - /usr/local/bin/webserver
         resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
           requests:
-            cpu: "100m"
+            cpu: 100m
+            memory: 64Mi
         imagePullPolicy: IfNotPresent #Always
         ports:
         - containerPort: 5000
@@ -62,10 +68,16 @@ spec:
     spec:
       containers:
       - name: helloworld
-        image: docker.io/istio/examples-helloworld-v2
+        image: autosetup/test-webserver:0.0.2
+        command:
+          - /usr/local/bin/webserver
         resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
           requests:
-            cpu: "100m"
+            cpu: 100m
+            memory: 64Mi
         imagePullPolicy: IfNotPresent #Always
         ports:
         - containerPort: 5000

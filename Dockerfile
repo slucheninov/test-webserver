@@ -3,7 +3,6 @@ WORKDIR /app
 
 COPY main.go main.go
 COPY go.mod go.mod
-COPY go.sum go.sum
 
 RUN go get -d -v
 

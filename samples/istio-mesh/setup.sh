@@ -7,7 +7,7 @@ namespace="sample"
 export CTX_CLUSTER1=gke_production-4f83b34d_us-central1_$cluster1
 export CTX_CLUSTER2=gke_production-4f83b34d_us-central1_$cluster2
 
-
+app="https://raw.githubusercontent.com/slucheninov/test-webserver/main/samples/istio-mesh/helloworld.yaml"
 
 
 # deploy
@@ -22,13 +22,13 @@ kubectl label --context="${CTX_CLUSTER1}" namespace $namespace istio-injection=e
 kubectl create --context="${CTX_CLUSTER2}" namespace $namespace
 kubectl label --context="${CTX_CLUSTER2}" namespace $namespace istio-injection=enabled
 
-kubectl apply --context="${CTX_CLUSTER1}" -f https://raw.githubusercontent.com/istio/istio/release-1.14/samples/helloworld/helloworld.yaml -l service=helloworld -n $namespace
-kubectl apply --context="${CTX_CLUSTER2}" -f https://raw.githubusercontent.com/istio/istio/release-1.14/samples/helloworld/helloworld.yaml -l service=helloworld -n $namespace
+kubectl apply --context="${CTX_CLUSTER1}" -f $app -l service=helloworld -n $namespace
+kubectl apply --context="${CTX_CLUSTER2}" -f $app -l service=helloworld -n $namespace
 
-kubectl apply --context="${CTX_CLUSTER1}" -f https://raw.githubusercontent.com/istio/istio/release-1.14/samples/helloworld/helloworld.yaml -l version=v1 -n $namespace
+kubectl apply --context="${CTX_CLUSTER1}" -f $app -l version=v1 -n $namespace
 kubectl get pod --context="${CTX_CLUSTER1}" -n $namespace -l app=helloworld
 
-kubectl apply --context="${CTX_CLUSTER2}" -f https://raw.githubusercontent.com/istio/istio/release-1.14/samples/helloworld/helloworld.yaml -l version=v2 -n $namespace
+kubectl apply --context="${CTX_CLUSTER2}" -f $app -l version=v2 -n $namespace
 kubectl get pod --context="${CTX_CLUSTER2}" -n $namespace -l app=helloworld
 
 # Deploy Sleep
