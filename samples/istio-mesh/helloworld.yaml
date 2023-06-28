@@ -37,6 +37,9 @@ spec:
         image: autosetup/test-webserver:0.0.2
         command:
           - /usr/local/bin/webserver
+        env:
+          - name: "SERVICE_VERSION"
+            value: "v1"
         resources:
           limits:
             cpu: 500m
@@ -72,6 +75,9 @@ spec:
         image: autosetup/test-webserver:0.0.2
         command:
           - /usr/local/bin/webserver
+        env:
+          - name: "SERVICE_VERSION"
+            value: "v2"
         resources:
           limits:
             cpu: 500m
