@@ -59,10 +59,11 @@ spec:
         enabled: true
     outlierDetection:
       consecutiveErrors: 1
-      interval: 1s
+      consecutiveGatewayErrors: 5
+      interval: 5s
       baseEjectionTime: 30s
-      maxEjectionPercent: 50
-      consecutive5xxErrors: 2
+      maxEjectionPercent: 20
+      consecutive5xxErrors: 5
 EOF
 
 kubectl --context="${CTX_CLUSTER2}" apply -n $namespace -f - <<EOF
@@ -80,11 +81,19 @@ spec:
         enabled: true
     outlierDetection:
       consecutiveErrors: 1
-      interval: 1s
+      consecutiveGatewayErrors: 5
+      interval: 5s
       baseEjectionTime: 30s
-      maxEjectionPercent: 50
-      consecutive5xxErrors: 2
+      maxEjectionPercent: 20
+      consecutive5xxErrors: 5
 EOF
+
+
+#          consecutiveGatewayErrors: 5
+#          interval: 5s
+#          baseEjectionTime: 30s
+#          maxEjectionPercent: 20
+
 
 fi
 

@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: helloworld
-        image: autosetup/test-webserver:0.0.2
+        image: autosetup/test-webserver:0.0.3
         command:
           - /usr/local/bin/webserver
         env:
@@ -72,7 +72,7 @@ spec:
     spec:
       containers:
       - name: helloworld
-        image: autosetup/test-webserver:0.0.2
+        image: autosetup/test-webserver:0.0.3
         command:
           - /usr/local/bin/webserver
         env:

@@ -26,7 +26,7 @@ func main() {
 
 	// Start the server
 	log.Println("Server started on port 5000")
-	log.Fatal(http.ListenAndServe(":5000", nil))
+	log.Fatal(http.ListenAndServe(":5001", nil))
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +37,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	version := os.Getenv("SERVICE_VERSION")
 	w.WriteHeader(httpStatusCode)
-	fmt.Fprint(w, "Version ", version, ", instance: ", hostname, ".\n")
+	fmt.Fprint(w, "Version ", version, ", instance: ", hostname, ", status: ", httpStatusCode, ".\n")
+	log.Printf("Version %v, instance: %v, status: %v.\n", version, hostname, httpStatusCode)
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
