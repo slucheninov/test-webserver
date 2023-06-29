@@ -1,6 +1,6 @@
 ACCOUNT_NAME := autosetup
 PROJECT_NAME := test-webserver
-TAG ?= 0.0.6
+TAG ?= 0.0.7
 
 build::
 	docker build -t $(PROJECT_NAME):$(TAG) .

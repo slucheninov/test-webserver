@@ -38,7 +38,10 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	version := os.Getenv("SERVICE_VERSION")
 	start := time.Now()
-	time.Sleep(10000)
+	time.Sleep(100000)
+	if httpStatusCode > 499 {
+		time.Sleep(2 * time.Second)
+	}
 	w.WriteHeader(httpStatusCode)
 	fmt.Fprint(w, "Version ", version, ", instance: ", hostname, ", status: ", httpStatusCode, ", time: ", time.Since(start), ".\n")
 	log.Printf("Version %v, instance: %v, status: %v, time: %v.\n", version, hostname, httpStatusCode, time.Since(start))
