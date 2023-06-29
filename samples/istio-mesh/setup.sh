@@ -38,8 +38,15 @@ kubectl apply --context="${CTX_CLUSTER2}" -f https://raw.githubusercontent.com/i
 kubectl get pod --context="${CTX_CLUSTER1}" -n $namespace -l app=sleep
 kubectl get pod --context="${CTX_CLUSTER2}" -n $namespace -l app=sleep
 
-kubectl scale --context="${CTX_CLUSTER1}" -n $namespace deploy -l app=helloworld --replicas=2
-kubectl scale --context="${CTX_CLUSTER2}" -n $namespace deploy -l app=helloworld --replicas=2
+kubectl scale --context="${CTX_CLUSTER1}" -n $namespace deploy -l app=helloworld --replicas=3
+kubectl scale --context="${CTX_CLUSTER2}" -n $namespace deploy -l app=helloworld --replicas=3
+fi
+
+if [[ $1 = "scale" ]] && [[ $2 -ne "" ]]; then
+
+kubectl scale --context="${CTX_CLUSTER1}" -n $namespace deploy -l app=helloworld --replicas=$2
+kubectl scale --context="${CTX_CLUSTER2}" -n $namespace deploy -l app=helloworld --replicas=$2
+
 fi
 
 
@@ -61,10 +68,12 @@ spec:
       consecutiveErrors: 1
       consecutiveGatewayErrors: 5
       interval: 5s
-      baseEjectionTime: 30s
-      maxEjectionPercent: 20
-      consecutive5xxErrors: 5
+      baseEjectionTime: 60s
+      maxEjectionPercent: 50
+      consecutive5xxErrors: 2
+
 EOF
+#       consecutive5xxErrors: 1
 
 kubectl --context="${CTX_CLUSTER2}" apply -n $namespace -f - <<EOF
 apiVersion: networking.istio.io/v1beta1
@@ -83,11 +92,11 @@ spec:
       consecutiveErrors: 1
       consecutiveGatewayErrors: 5
       interval: 5s
-      baseEjectionTime: 30s
-      maxEjectionPercent: 20
-      consecutive5xxErrors: 5
+      baseEjectionTime: 60s
+      maxEjectionPercent: 50
+      consecutive5xxErrors: 2
 EOF
-
+#       consecutive5xxErrors: 1
 
 #          consecutiveGatewayErrors: 5
 #          interval: 5s

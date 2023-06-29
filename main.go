@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 type Data struct {
@@ -36,9 +37,11 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	version := os.Getenv("SERVICE_VERSION")
+	start := time.Now()
+	time.Sleep(10000)
 	w.WriteHeader(httpStatusCode)
-	fmt.Fprint(w, "Version ", version, ", instance: ", hostname, ", status: ", httpStatusCode, ".\n")
-	log.Printf("Version %v, instance: %v, status: %v.\n", version, hostname, httpStatusCode)
+	fmt.Fprint(w, "Version ", version, ", instance: ", hostname, ", status: ", httpStatusCode, ", time: ", time.Since(start), ".\n")
+	log.Printf("Version %v, instance: %v, status: %v, time: %v.\n", version, hostname, httpStatusCode, time.Since(start))
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
